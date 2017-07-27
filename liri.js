@@ -32,10 +32,34 @@ var twitterCall = function() {
 }
 
 
+
+////spotify
+
+
+var clientSpot = new spotify(keyStuff.spotifyKeys);
+ 
+var spotifyCall = function(songname) {
+
+	clientSpot.search({ type: 'track', query: songname }, function(err, data) {
+  	if (err) {
+    	return console.log('Error occurred: ' + err);
+  	} else {
+  		console.log(data.tracks.items[0]);
+  	}
+	});
+};
+
+// spotifyCall();
+
+//switch statement
+
 var pick = function(caseDate, functionData) {
 	switch(caseDate) {
 		case 'my-tweets':
 			twitterCall();
+			break;
+		case 'spotify-this-song':
+			spotifyCall(functionData);
 			break;
 		default:
 		console.log('liri does not know that');
@@ -48,24 +72,3 @@ var runThis = function(argOne, argTwo) {
 
 runThis(process.argv[2], process.argv[3]);
 
-
-
-
-////spotify
-
-
-
-var clientSpot = new spotify(keyStuff.spotifyKeys);
- 
-var spotifyCall = function () {
-
-	clientSpot.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
-  	if (err) {
-    	return console.log('Error occurred: ' + err);
-  	} else {
-  		console.log(data);
-  	}
-	});
-};
-
-spotifyCall();
