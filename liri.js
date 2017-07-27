@@ -10,7 +10,9 @@ var keyStuff = require("./keys.js")
 
 var Twitter = require('twitter');
 
-var spotify = require('spotify');
+var spotify = require('node-spotify-api');
+
+
  
 var client = new Twitter(keyStuff.twitterKeys);
 
@@ -29,18 +31,6 @@ var twitterCall = function() {
 	});
 }
 
- 
-spotify.search({ type: 'track', query: 'dancing in the moonlight' }
-	, function(err, data) {
-    if ( err ) {
-        console.log('Error occurred: ' + err);
-        return;
-    }
-    console.log(data);
-});
-
-
-
 
 var pick = function(caseDate, functionData) {
 	switch(caseDate) {
@@ -57,3 +47,25 @@ var runThis = function(argOne, argTwo) {
 };
 
 runThis(process.argv[2], process.argv[3]);
+
+
+
+
+////spotify
+
+
+
+var clientSpot = new spotify(keyStuff.spotifyKeys);
+ 
+var spotifyCall = function () {
+
+	clientSpot.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
+  	if (err) {
+    	return console.log('Error occurred: ' + err);
+  	} else {
+  		console.log(data);
+  	}
+	});
+};
+
+spotifyCall();

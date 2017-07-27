@@ -7,19 +7,7 @@ exports.twitterKeys = {
   access_token_secret: 'jJuc0FQgnxXCEW5kGepsr74y8yoIiOheNAS48RIg31PM4',
 }
 
-// var Spotify = require('machinepack-spotify');
-
-// // Get access token to use with requests to Spotify Web API.
-// Spotify.getAccessToken({
-// clientId: 'abc123jdhs3h4js',
-// clientSecret: '87kljf66jlf9jj98q89f7s8i',
-// }).exec({
-// // An unexpected error occurred.
-// error: function (err) {
- 
-// },
-// // OK.
-// success: function () {
- 
-// },
-// });
+exports.spotifyKeys = {
+  id: "28014617d93f4befa14747ec0aecfa37",
+  secret: "fd491245ff72448bb20e33013c315433"
+};
