@@ -1,27 +1,24 @@
-// At the top of the liri.js file, write the code you need to grab the data from keys.js. 
-// Then store the keys in a variable.
-// Make it so liri.js can take in one of the following commands:
-// my-tweets
-// spotify-this-song
-// movie-this
-// do-what-it-says
 
 var keyStuff = require("./keys.js")
 
 var Twitter = require('twitter');
 
-var spotify = require('node-spotify-api');
+var Spotify = require('node-spotify-api');
+
+var request = require('request');
 
 
- 
-var client = new Twitter(keyStuff.twitterKeys);
+////twitter
+
+
 
 var twitterCall = function() {
+
+	var client = new Twitter(keyStuff.twitterKeys);
 
 	var params = {screen_name: 'liriFiaCat'};
 	client.get('statuses/user_timeline', params, function(error, tweets, response) {
 	  if (!error) {
-	    // console.log(tweets);
 	    for (var i = 0; i < tweets.length; i++) {
 	    	console.log(tweets[i].created_at);
 	    	console.log(" ");
@@ -35,23 +32,57 @@ var twitterCall = function() {
 
 ////spotify
 
-
-var clientSpot = new spotify(keyStuff.spotifyKeys);
  
 var spotifyCall = function(songname) {
 
-	clientSpot.search({ type: 'track', query: songname }, function(err, data) {
-  	if (err) {
-    	return console.log('Error occurred: ' + err);
-  	} else {
-  		console.log(data.tracks.items[0]);
-  	}
+	var spotify = new Spotify(keyStuff.spotifyKeys);
+
+	spotify.search({ type: 'track', query: songname }, function(err, data) {
+		if (!error) {
+  			console.log(data);
+  		}
 	});
-};
+}
 
-// spotifyCall();
 
-//switch statement
+///movie this
+
+var movieCall = function(movieName) {
+
+	var movie = process.argv[3];
+
+	request('http://www.omdbapi.com/?t=' + movie +'&apikey=40e9cece', function (error, response, body) {
+		if (!error) { 
+			var movieData = JSON.parse(body);
+			// if (movieData.Title == process.argv[3])
+			{
+				console.log("Title: " + movieData.Title);
+				console.log("Year: " + movieData.Year);
+				console.log("Rating: " + movieData.Rated);
+				console.log("Rotten Tomatoes: " + movieData.Ratings[1].Value);
+				console.log("Country Produced: " + movieData.Country);
+				console.log("Language: " + movieData.Language);
+				console.log("Plot: " + movieData.Plot);
+				console.log("Actors: " + movieData.Actors);
+			}
+		}
+	});
+}
+
+
+// do-what-it-says
+var doIt() = function() {
+
+	//finish this function
+}
+
+
+
+
+
+
+
+// switch statement
 
 var pick = function(caseDate, functionData) {
 	switch(caseDate) {
@@ -61,14 +92,27 @@ var pick = function(caseDate, functionData) {
 		case 'spotify-this-song':
 			spotifyCall(functionData);
 			break;
+		case 'movie-this':
+			movieCall();
+			break;
+		// case 'do-what-it-says':
+		// 	doIt();
+		// 	break;
 		default:
 		console.log('liri does not know that');
 	}
 }
 
+//run with input! 
+
 var runThis = function(argOne, argTwo) {
 	pick(argOne, argTwo);
 };
 
+
+
 runThis(process.argv[2], process.argv[3]);
+
+ 
+
 
