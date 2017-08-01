@@ -70,18 +70,6 @@ var movieCall = function(movieName) {
 }
 
 
-// do-what-it-says
-var doIt() = function() {
-
-	//finish this function
-}
-
-
-
-
-
-
-
 // switch statement
 
 var pick = function(caseDate, functionData) {
